@@ -17,10 +17,10 @@
 '''
 # РЕШЕНИЕ
 
+# Импорт модулей
 import re
 
-# функции
-
+# Функции
 def inputArray(phrase):
     while True:
         values = input(f'Введите {phrase} через пробел или с запятыми: ').replace(',', ' ').split()
@@ -58,7 +58,6 @@ def inputArray(phrase):
 def arithProgress(firstEl, diff, elemCount):
     return [int(firstEl + (i * diff)) if float(firstEl + (i * diff)).is_integer() else round(firstEl + (i * diff), 3) for i in range(elemCount)]
 
-# код
-
+# Код
 firEl, dif, elemCo = inputArray('первый элемент, разность и количество элементов прогрессии')
 print(f"\033[32mМассив, заполненный элементами арифметической прогрессии :\n\033[36m{arithProgress(firEl, dif, elemCo)}\n\033[0m")
