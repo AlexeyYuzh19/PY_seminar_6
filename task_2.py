@@ -112,7 +112,6 @@ else:
     else:
         resArray = list(map(int, (random.randint(1, 100) for _ in range(25))))
     print(f'Задан массив из {len(resArray)} элементов : \n\033[30m{resArray}\033[0m')
-
     minVal = controlInput('минимум диапазона')
     while True:
             maxVal = controlInput('максимум диапазона')
