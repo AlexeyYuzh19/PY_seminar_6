@@ -87,35 +87,42 @@ def findIndexCort(listArr, min_val, max_val):
     return index
 
 # Код
-choice = input('\033[34mВыберите способ ввода элементов массива :\033[0m\n\033[32m" 1 " - набор с клавиатуры\033[0m \n\033[35m" 2 " - рандомно с заданием параметров\033[0m \n\033[36m"произвольный символ" - рандомно : \033[0m')
-if choice == '1':
-    resArray = inputArray()
-elif choice == '2':
-    minArr = controlInput('минимальное значение массива')    
+choice = input('\033[34mВыберите способ ввода элементов массива :\033[0m\n" 0 " - ТЕСТ из задания\n\033[32m" 1 " - набор с клавиатуры\033[0m\n\033[35m" 2 " - рандомно с заданием параметров\033[0m\n\033[36m"произвольный символ" - рандомно : \033[0m')
+if choice == '0':
+    resArray = [-5, 9, 0, 3, -1, -2, 1, 4, -2, 10, 2, 0, -9, 8, 10, -9, 0, -5, -5, 7]    
+    minVal = 2
+    maxVal = 10
+    print('\033[30mЗаданы границы диапазона : [ {} _ {} ]\033[0m'.format(minVal, maxVal))
+else: 
+    if choice == '1':
+        resArray = inputArray()
+    elif choice == '2':
+        minArr = controlInput('минимальное значение массива')    
+        while True:
+            maxArr = controlInput('максимальное значение массива')
+            if maxArr < minArr:
+                print('\033[31mОшибка!\033[0m Значение должно быть больше минимального.')                 
+                continue 
+            break        
+        countArr = positiveInteger('количество чисел в массиве') 
+        resArray = list(map(float, (round(random.uniform(minArr, maxArr), 3) for _ in range(countArr))))    
+        if countArr > 2 and all(value == 0 for value in resArray):
+                    index = random.randint(0, len(resArray)-1)
+                    resArray[index] = 1
+    else:
+        resArray = list(map(int, (random.randint(1, 100) for _ in range(25))))
+    print(f'Задан массив из {len(resArray)} элементов : \n\033[30m{resArray}\033[0m')
+
+    minVal = controlInput('минимум диапазона')
     while True:
-        maxArr = controlInput('максимальное значение массива')
-        if maxArr < minArr:
-            print('\033[31mОшибка!\033[0m Значение должно быть больше минимального.')                 
-            continue 
-        break        
-    countArr = positiveInteger('количество чисел в массиве') 
-    resArray = list(map(float, (round(random.uniform(minArr, maxArr), 3) for _ in range(countArr))))    
-    if countArr > 2 and all(value == 0 for value in resArray):
-                index = random.randint(0, len(resArray)-1)
-                resArray[index] = 1
-else:
-    resArray = list(map(int, (random.randint(1, 100) for _ in range(25))))
-print(f'Задан массив из {len(resArray)} элементов : \n\033[30m{resArray}\033[0m')
-minVal = controlInput('минимум диапазона')
-while True:
-        maxVal = controlInput('максимум диапазона')
-        if maxVal <= minVal:
-            print('\033[31mОшибка!\033[0m Значение должно быть больше минимального.')                 
-            continue 
-        break 
+            maxVal = controlInput('максимум диапазона')
+            if maxVal <= minVal:
+                print('\033[31mОшибка!\033[0m Значение должно быть больше минимального.')                 
+                continue 
+            break 
 resFir = findIndex(resArray, minVal, maxVal)
 if len(resFir) == 0:     
     print('В заданном диапазоне [ {} _ {} ] искомые значения отсутствуют.\n'.format(minVal, maxVal))
 else:
-    print('Индексы элементов массива, значения которых принадлежат заданному диапазону [ {} _ {} ] :\n{}.\nКоличество индексов : {}.'.format(minVal, maxVal, resFir, len(resFir)))
+    print('Индексы элементов массива, значения которых принадлежат заданному диапазону [ {} _ {} ] :\n{}\nКоличество индексов : {}'.format(minVal, maxVal, resFir, len(resFir)))
     print(f'Cписок кортежей вида: индекс, значение - которые принадлежат заданному диапазону :\n{findIndexCort(resArray, minVal, maxVal)}\n')  
